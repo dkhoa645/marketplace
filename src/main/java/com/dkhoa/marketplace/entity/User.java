@@ -19,7 +19,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
 
-    String name;
+    String userName;
     String password;
 
     @ManyToMany
