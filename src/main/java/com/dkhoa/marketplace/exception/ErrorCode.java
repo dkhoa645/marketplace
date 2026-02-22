@@ -13,6 +13,8 @@ public enum ErrorCode {
     USER_EXISTED(1005, "User already existed", HttpStatus.CONFLICT),
     USERNAME_INVALID(1006, "Username must be at least {min} characters", HttpStatus.BAD_REQUEST),
     PASSWORD_INVALID(1007, "Password must be at least {min} characters", HttpStatus.BAD_REQUEST),
+    PROVINCE_EXISTED(1008, "Province already existed", HttpStatus.CONFLICT),
+    PROVINCE_NOT_FOUND(1009, "Province not found", HttpStatus.NOT_FOUND),
     ;
 
     ErrorCode(int code, String message, HttpStatusCode statusCode) {

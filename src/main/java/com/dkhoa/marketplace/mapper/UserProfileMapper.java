@@ -1,0 +1,7 @@
+package com.dkhoa.marketplace.mapper;
+
+import org.mapstruct.Mapper;
+
+@Mapper(componentModel = "spring")
+public interface UserProfileMapper {
+}
