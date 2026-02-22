@@ -44,11 +44,11 @@ public class ApplicationInitConfig {
 
             Role admin = roleRepository.findByName(RoleEnum.ADMIN)
                     .orElseThrow(()-> new AppException(ErrorCode.RESOURCE_NOT_EXIST));
-            if(userRepository.findByUserName("admin").isEmpty()){
+            if(userRepository.findByUsername("admin").isEmpty()){
                 Set<Role> roles = new HashSet<>();
                 roles.add(admin);
                 User adminUser = User.builder()
-                        .userName("admin")
+                        .username("admin")
                         .password(passwordEncoder.encode("admin"))
                         .roles(roles)
                         .build();

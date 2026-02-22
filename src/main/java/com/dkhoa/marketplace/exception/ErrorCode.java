@@ -10,6 +10,7 @@ public enum ErrorCode {
     UNAUTHORIZED(1002, "Unauthorized", HttpStatus.FORBIDDEN),
     RESOURCE_NOT_EXIST(1003, "Resource not exist", HttpStatus.BAD_REQUEST),
     USER_NOT_FOUND(1004, "User not found", HttpStatus.NOT_FOUND),
+    USER_EXISTED(1005, "User already existed", HttpStatus.CONFLICT),
     ;
 
     ErrorCode(int code, String message, HttpStatusCode statusCode) {

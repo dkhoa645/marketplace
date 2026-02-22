@@ -10,7 +10,8 @@ import java.util.UUID;
 @Entity
 @Table(name = "users")
 @Builder
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -19,7 +20,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
 
-    String userName;
+    String username;
     String password;
 
     @ManyToMany

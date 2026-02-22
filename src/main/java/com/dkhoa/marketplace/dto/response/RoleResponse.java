@@ -1,4 +1,4 @@
-package com.dkhoa.marketplace.dto.request;
+package com.dkhoa.marketplace.dto.response;
 
 import com.dkhoa.marketplace.entity.Enum.RoleEnum;
 import lombok.*;
@@ -9,7 +9,6 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class AuthenticationRequest {
-    String username;
-    String password;
+public class RoleResponse {
+    RoleEnum name;
 }

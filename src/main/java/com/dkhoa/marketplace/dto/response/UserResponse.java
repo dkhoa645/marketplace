@@ -1,15 +1,19 @@
-package com.dkhoa.marketplace.dto.request;
+package com.dkhoa.marketplace.dto.response;
 
-import com.dkhoa.marketplace.entity.Enum.RoleEnum;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import java.util.Set;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class AuthenticationRequest {
+public class UserResponse {
+    UUID id;
     String username;
-    String password;
+    Set<RoleResponse> roles;
+
 }
