@@ -11,6 +11,8 @@ public enum ErrorCode {
     RESOURCE_NOT_EXIST(1003, "Resource not exist", HttpStatus.BAD_REQUEST),
     USER_NOT_FOUND(1004, "User not found", HttpStatus.NOT_FOUND),
     USER_EXISTED(1005, "User already existed", HttpStatus.CONFLICT),
+    USERNAME_INVALID(1006, "Username must be at least {min} characters", HttpStatus.BAD_REQUEST),
+    PASSWORD_INVALID(1007, "Password must be at least {min} characters", HttpStatus.BAD_REQUEST),
     ;
 
     ErrorCode(int code, String message, HttpStatusCode statusCode) {

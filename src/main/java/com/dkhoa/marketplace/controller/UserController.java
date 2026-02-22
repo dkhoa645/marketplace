@@ -7,6 +7,7 @@ import com.dkhoa.marketplace.service.UserService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,6 +35,7 @@ public class UserController {
     }
 
     @GetMapping()
+    @PreAuthorize("hasRole('ADMIN')")
     ApiResponse<List<UserResponse>> getAll(){
         return ApiResponse.<List<UserResponse>>builder()
                 .result(userService.getAll())
@@ -41,6 +43,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     ApiResponse<Void> deleteUser(@PathVariable UUID id){
         userService.deleteUser(id);
         return ApiResponse.<Void>builder()
