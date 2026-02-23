@@ -34,8 +34,10 @@ public class UserController {
                 .build();
     }
 
+
+
     @GetMapping()
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     ApiResponse<List<UserResponse>> getAll(){
         return ApiResponse.<List<UserResponse>>builder()
                 .result(userService.getAll())
@@ -43,7 +45,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     ApiResponse<Void> deleteUser(@PathVariable UUID id){
         userService.deleteUser(id);
         return ApiResponse.<Void>builder()

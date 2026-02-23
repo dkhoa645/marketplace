@@ -3,7 +3,11 @@ package com.dkhoa.marketplace.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
@@ -18,15 +22,21 @@ public class UserProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
-
     String fullName;
+    @Column(unique = true, nullable = false)
     String email;
+    @Column(unique = true, nullable = false)
     String phoneNumber;
-    String avatar;
+    @Column(nullable = false)
     String address;
-    @ManyToOne(cascade = CascadeType.ALL)
+    LocalDate dob;
+    @ManyToOne
     Province province;
     @OneToOne
     User user;
+    @CreatedDate
+    Instant createdAt;
+    @LastModifiedDate
+    Instant updatedAt;
 
 }
