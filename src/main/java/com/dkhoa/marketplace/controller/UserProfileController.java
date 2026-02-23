@@ -1,6 +1,7 @@
 package com.dkhoa.marketplace.controller;
 
 import com.dkhoa.marketplace.dto.request.ProfileCreationRequest;
+import com.dkhoa.marketplace.dto.request.ProfileUpdateRequest;
 import com.dkhoa.marketplace.dto.response.ApiResponse;
 import com.dkhoa.marketplace.dto.response.ProfileResponse;
 import com.dkhoa.marketplace.mapper.UserProfileMapper;
@@ -48,6 +49,15 @@ public class UserProfileController {
             @RequestBody @Valid ProfileCreationRequest  profileCreationRequest){
         return ApiResponse.<ProfileResponse>builder()
                 .result(userProfileService.createProfile(profileCreationRequest))
+                .build();
+    }
+
+    @PutMapping("/{id}")
+    ApiResponse<ProfileResponse> updateProfile(
+            @PathVariable UUID id,
+            @RequestBody @Valid ProfileUpdateRequest profileUpdateRequest){
+        return ApiResponse.<ProfileResponse>builder()
+                .result(userProfileService.updateProfile(id,profileUpdateRequest))
                 .build();
     }
 }

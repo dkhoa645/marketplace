@@ -23,6 +23,7 @@ public enum ErrorCode {
     PROFILE_EXISTED(1012, "Profile already existed", HttpStatus.CONFLICT),
     PROFILE_NOT_FOUND(1013, "Profile not found", HttpStatus.NOT_FOUND),
     INVALID_FIELD(1014, "Invalid field", HttpStatus.BAD_REQUEST),
+    INVALID_DOB(1015, "Your age must be at least {min} ", HttpStatus.BAD_REQUEST),
     ;
 
     ErrorCode(int code, String message, HttpStatusCode statusCode) {

@@ -1,8 +1,10 @@
 package com.dkhoa.marketplace.dto.request;
 
+import com.dkhoa.marketplace.validator.DobConstraint;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -14,7 +16,7 @@ import java.time.LocalDate;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ProfileCreationRequest {
-    @NotBlank
+    @Size(min = 1)
     String fullName;
     @Email(message = "EMAIL_INVALID")
     @NotBlank
@@ -23,6 +25,9 @@ public class ProfileCreationRequest {
     String phoneNumber;
     @NotBlank
     String address;
+
+    @DobConstraint(min = 18, message = "INVALID_DOB")
     LocalDate dob;
+
     Long provinceId;
 }

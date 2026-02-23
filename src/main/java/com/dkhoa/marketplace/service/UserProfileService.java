@@ -1,6 +1,7 @@
 package com.dkhoa.marketplace.service;
 
 import com.dkhoa.marketplace.dto.request.ProfileCreationRequest;
+import com.dkhoa.marketplace.dto.request.ProfileUpdateRequest;
 import com.dkhoa.marketplace.dto.response.ProfileResponse;
 import com.dkhoa.marketplace.entity.Province;
 import com.dkhoa.marketplace.entity.User;
@@ -11,9 +12,11 @@ import com.dkhoa.marketplace.mapper.UserProfileMapper;
 import com.dkhoa.marketplace.repository.ProvinceRepository;
 import com.dkhoa.marketplace.repository.UserProfileRepository;
 import com.dkhoa.marketplace.repository.UserRepository;
+import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.context.annotation.Profile;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -31,7 +34,9 @@ public class UserProfileService {
     ProvinceRepository provinceRepository;
 
     public List<ProfileResponse> getAllProfiles() {
-        return null;
+        return userProfileRepository.findAll().stream()
+                .map(userProfileMapper::toProfileResponse)
+                .toList();
     }
 
     public ProfileResponse getMyProfile() {
@@ -69,5 +74,32 @@ public class UserProfileService {
         UserProfile userProfile = userProfileRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.PROFILE_NOT_FOUND));
         userProfileRepository.delete(userProfile);
+    }
+
+    public ProfileResponse updateProfile(UUID id, @Valid ProfileUpdateRequest profileUpdateRequest) {
+        UserProfile profile = userProfileRepository.findById(id)
+                .orElseThrow(() -> new AppException(ErrorCode.PROFILE_NOT_FOUND));
+
+        if(profileUpdateRequest.getEmail()!=null &&
+                userProfileRepository.existByEmailAndIdNot(profile.getEmail(),id)){
+            throw new AppException(ErrorCode.EMAIL_EXISTED);
+        }
+        if(profileUpdateRequest.getPhoneNumber()!=null &&
+                userProfileRepository.existByPhoneNumberAndIdNot(profile.getEmail(),id)){
+            throw new AppException(ErrorCode.EMAIL_EXISTED);
+        }
+
+        if (profileUpdateRequest.getProvinceId() != null) {
+
+            Province province = provinceRepository
+                    .findById(profileUpdateRequest.getProvinceId())
+                    .orElseThrow(() ->
+                            new AppException(ErrorCode.PROVINCE_NOT_FOUND));
+
+            profile.setProvince(province);
+        }
+
+        userProfileMapper.updateProfile(profileUpdateRequest, profile);
+        return userProfileMapper.toProfileResponse(userProfileRepository.save(profile));
     }
 }

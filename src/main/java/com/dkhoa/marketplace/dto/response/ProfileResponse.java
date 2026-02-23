@@ -22,7 +22,7 @@ public class ProfileResponse {
     String phoneNumber;
     String address;
     LocalDate dob;
-    ProvinceResponse provinceResponse;
+    ProvinceResponse province;
     Instant createdAt;
     Instant updatedAt;
 }

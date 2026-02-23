@@ -10,7 +10,7 @@ import org.mapstruct.MappingTarget;
 @Mapper(componentModel = "spring")
 public interface ProvinceMapper {
     Province toEntity(ProvinceCreationRequest request);
-    ProvinceCreationRequest toModel(Province province);
+
     ProvinceResponse toResponse(Province province);
     void updateProvince(@MappingTarget Province province, ProvinceUpdateRequest request);
 }
