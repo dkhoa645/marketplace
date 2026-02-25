@@ -21,6 +21,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
@@ -32,6 +33,7 @@ public class UserProfileService {
     UserProfileMapper userProfileMapper;
     UserRepository userRepository;
     ProvinceRepository provinceRepository;
+    CloudinaryService cloudinaryService;
 
     public List<ProfileResponse> getAllProfiles() {
         return userProfileRepository.findAll().stream()
@@ -64,6 +66,13 @@ public class UserProfileService {
         userProfile.setUser(user);
 
         try {
+            String avatar = cloudinaryService.uploadFile(profileCreationRequest.getAvatar(), "avatar");
+            userProfile.setAvatar(avatar);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
             return userProfileMapper.toProfileResponse(userProfileRepository.save(userProfile));
         } catch (DataIntegrityViolationException e) {
             throw new AppException(ErrorCode.PROFILE_EXISTED);
@@ -81,11 +90,11 @@ public class UserProfileService {
                 .orElseThrow(() -> new AppException(ErrorCode.PROFILE_NOT_FOUND));
 
         if(profileUpdateRequest.getEmail()!=null &&
-                userProfileRepository.existByEmailAndIdNot(profile.getEmail(),id)){
+                userProfileRepository.existsByEmailAndIdNot(profile.getEmail(),id)){
             throw new AppException(ErrorCode.EMAIL_EXISTED);
         }
         if(profileUpdateRequest.getPhoneNumber()!=null &&
-                userProfileRepository.existByPhoneNumberAndIdNot(profile.getEmail(),id)){
+                userProfileRepository.existsByPhoneNumberAndIdNot(profile.getEmail(),id)){
             throw new AppException(ErrorCode.EMAIL_EXISTED);
         }
 
@@ -100,6 +109,7 @@ public class UserProfileService {
         }
 
         userProfileMapper.updateProfile(profileUpdateRequest, profile);
+
         return userProfileMapper.toProfileResponse(userProfileRepository.save(profile));
     }
 }

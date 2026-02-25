@@ -26,6 +26,9 @@ import java.util.Set;
 @Slf4j
 public class ApplicationInitConfig {
 
+
+
+
     PasswordEncoder passwordEncoder;
 
     @Bean
@@ -33,6 +36,8 @@ public class ApplicationInitConfig {
             RoleRepository roleRepository, UserRepository userRepository
     ) {
         return args -> {
+
+
             Arrays.stream(RoleEnum.values()).forEach(roleEnum -> {
                 roleRepository.findByName(roleEnum)
                         .orElseGet(()->{

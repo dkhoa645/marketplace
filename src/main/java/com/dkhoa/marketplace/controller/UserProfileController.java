@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -44,9 +45,9 @@ public class UserProfileController {
                 .build();
     }
 
-    @PostMapping()
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     ApiResponse<ProfileResponse> createProfile(
-            @RequestBody @Valid ProfileCreationRequest  profileCreationRequest){
+            @ModelAttribute @Valid ProfileCreationRequest  profileCreationRequest){
         return ApiResponse.<ProfileResponse>builder()
                 .result(userProfileService.createProfile(profileCreationRequest))
                 .build();

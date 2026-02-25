@@ -26,6 +26,7 @@ public class Conversation {
 
     @Column(unique = true)
     String participantHash;
+    @OneToMany
     List<UserProfile> userProfiles;
 
     Instant createdAt;

@@ -14,9 +14,9 @@ public interface UserProfileRepository extends JpaRepository<UserProfile, UUID> 
 
     UserProfile findByUser(User user);
 
-    boolean existByEmailAndIdNot(String email,UUID id);
+    boolean existsByEmailAndIdNot(String email, UUID id);
 
-    boolean existByPhoneNumberAndIdNot(String number,UUID id);
+    boolean existsByPhoneNumberAndIdNot(String phoneNumber, UUID id);
 
-    boolean findByUserNot(User user);
+
 }

@@ -23,6 +23,7 @@ public class ProfileResponse {
     String address;
     LocalDate dob;
     ProvinceResponse province;
+    String avatar;
     Instant createdAt;
     Instant updatedAt;
 }

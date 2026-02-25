@@ -28,6 +28,8 @@ public class ConversationService {
     ConversationRepository conversationRepository;
     UserRepository userRepository;
     ConversationMapper  conversationMapper;
+    UserProfileRepository userProfileRepository;
+
 
     public ConversationResponse createConversation(@Valid ConversationCreationRequest conversationCreationRequest) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -43,11 +45,11 @@ public class ConversationService {
         var sortIds = ids.stream().sorted().toList();
         String hashParticipant = hashParticipants(sortIds);
 
+
         List<UserProfile> listProfiles = List.of(
-                user.getUserProfile(), participant.getUserProfile()
+                    userProfileRepository.findByUser(user),
+                    userProfileRepository.findByUser(participant)
         );
-
-
 
         Conversation conversation = Conversation.builder()
                 .userProfiles(listProfiles)
@@ -84,7 +86,7 @@ public class ConversationService {
 
     public List<ConversationResponse> getMyConservation() {
         return conversationRepository.findAll().stream()
-                .map(conversationMapper::toConversationResponse)
+                .map(this::toConversationResponse)
                 .toList();
     }
 }

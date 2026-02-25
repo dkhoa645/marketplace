@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 
@@ -30,4 +31,6 @@ public class ProfileCreationRequest {
     LocalDate dob;
 
     Long provinceId;
+
+    MultipartFile avatar;
 }

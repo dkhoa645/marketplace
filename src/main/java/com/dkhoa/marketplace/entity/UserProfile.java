@@ -41,5 +41,7 @@ public class UserProfile {
     @LastModifiedDate
     Instant updatedAt;
     String avatar;
+    @ManyToOne
+    Conversation conversation;
 
 }
