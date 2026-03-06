@@ -25,6 +25,7 @@ public enum ErrorCode {
     INVALID_FIELD(1014, "Invalid field", HttpStatus.BAD_REQUEST),
     INVALID_DOB(1015, "Your age must be at least {min} ", HttpStatus.BAD_REQUEST),
     UPLOAD_FAILED(1016, "File upload failed", HttpStatus.BAD_REQUEST),
+    CONVERSATION_NOT_FOUND(1017, "Conversation not found", HttpStatus.NOT_FOUND),
     ;
 
     ErrorCode(int code, String message, HttpStatusCode statusCode) {
